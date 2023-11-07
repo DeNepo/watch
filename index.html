@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Play Video URL</title>
+  </head>
+
+  <body>
+    <input
+      id="url"
+      type="text"
+      style="width: 100%"
+      placeholder="paste a video URL"
+    />
+
+    <br />
+
+    <a id="download" href="">download the video</a>
+
+    <br />
+
+    <video id="video" src="" type="" controls style="height: 90vh"></video>
+
+    <script>
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get("url")) {
+        url.value = searchParams.get("url");
+        loadVideo(url.value);
+      }
+
+      url.addEventListener("input", (e) => loadVideo(e.target.value));
+
+      function loadVideo(videoLink) {
+        video.src = videoLink;
+        video.type = `video/${videoLink.split(".").pop()}`;
+
+        download.href = videoLink;
+
+        window.history.replaceState(
+          {},
+          "",
+          `${
+            window.location.origin + window.location.pathname
+          }?url=${videoLink}`
+        );
+      }
+    </script>
+  </body>
+</html>
